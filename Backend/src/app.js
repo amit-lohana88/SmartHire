@@ -7,6 +7,7 @@ const authRoutes = require('./routes/authRoutes');
 const candidateRoutes = require('./routes/candidateRoutes');
 const companyRoutes = require('./routes/companyRoutes');
 const applicationRoutes = require('./routes/applicationRoutes');
+const notificationRoutes = require('./routes/notificationRoutes');
 
 const app = express();
 app.use(express.json());
@@ -21,6 +22,7 @@ app.use('/api/candidate', candidateRoutes);
 app.use('/api/company', companyRoutes);
 app.use('/api/jobs', jobRoutes);
 app.use('/api/applications', applicationRoutes);
+app.use('/api/notifications', notificationRoutes);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {

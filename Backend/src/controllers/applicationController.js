@@ -1,5 +1,6 @@
 const pool = require('../config/db');
 const { v4: uuidv4 } = require('uuid');
+const { createNotification } = require('./notificationController');
 
 const applyToJob = async (req, res) => {
   const { jobId } = req.params;
@@ -31,6 +32,23 @@ const applyToJob = async (req, res) => {
        VALUES ($1,$2,$3,'applied',$4) RETURNING *`,
       [id, jobId, candidate.rows[0].id, resume_url]
     );
+    const jobDetails = await pool.query(
+    `SELECT jp.title, cp.user_id 
+    FROM job_postings jp
+    JOIN company_profiles cp ON cp.id = jp.company_id
+    WHERE jp.id = $1`,
+    [jobId]
+    );
+    if (jobDetails.rows.length > 0) {
+    await createNotification(
+        jobDetails.rows[0].user_id,
+        'new_application',
+        'New Application Received',
+        `Someone applied to your job: ${jobDetails.rows[0].title}`,
+        'application',
+        result.rows[0].id
+    );
+    }
     res.status(201).json({ message: 'Application submitted successfully', application: result.rows[0] });
   } catch (error) {
     console.error('Apply to job error:', error.message);
