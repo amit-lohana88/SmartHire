@@ -3,13 +3,35 @@ const { v4: uuidv4 } = require('uuid');
 
 const getProfile = async (req, res) => {
   try {
-    const result = await pool.query(
-      'SELECT cp.*, u.email FROM candidate_profiles cp JOIN users u ON u.id = cp.user_id WHERE cp.user_id = $1',
+    const profileResult = await pool.query(
+      `SELECT cp.*, u.email 
+       FROM candidate_profiles cp 
+       JOIN users u ON u.id = cp.user_id 
+       WHERE cp.user_id = $1`,
       [req.user.id]
     );
-    if (result.rows.length === 0) return res.status(404).json({ error: 'Profile not found' });
-    res.status(200).json({ profile: result.rows[0] });
+
+    if (profileResult.rows.length === 0) return res.status(404).json({ error: 'Profile not found' });
+
+    const profile = profileResult.rows[0];
+
+    const experienceResult = await pool.query(
+      'SELECT * FROM candidate_experiences WHERE candidate_id = $1 ORDER BY start_date DESC',
+      [profile.id]
+    );
+
+    const educationResult = await pool.query(
+      'SELECT * FROM candidate_education WHERE candidate_id = $1 ORDER BY start_year DESC',
+      [profile.id]
+    );
+
+    profile.experiences = experienceResult.rows;
+    profile.education = educationResult.rows;
+
+    res.status(200).json({ profile });
+
   } catch (error) {
+    console.error('Get profile error:', error.message);
     res.status(500).json({ error: 'Server error' });
   }
 };
