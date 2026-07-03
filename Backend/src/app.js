@@ -24,6 +24,22 @@ app.get('/', (req, res) => {
   res.json({ message: 'SmartHire API is running' });
 });
 
+app.get('/api/stats', async (req, res) => {
+  try {
+    const jobs = await pool.query("SELECT COUNT(*) FROM job_postings WHERE status = 'active'");
+    const candidates = await pool.query("SELECT COUNT(*) FROM candidate_profiles");
+    const companies = await pool.query("SELECT COUNT(*) FROM company_profiles");
+
+    res.status(200).json({
+      total_jobs: jobs.rows[0].count,
+      total_candidates: candidates.rows[0].count,
+      total_companies: companies.rows[0].count
+    });
+  } catch (error) {
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
 app.use('/api/auth', authRoutes);
 app.use('/api/candidate', candidateRoutes);
 app.use('/api/company', companyRoutes);
