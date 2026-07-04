@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Browse Jobs | SmartHire</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet"/>
+  <link href="../css/style.css" rel="stylesheet"/>
+</head>
+<body>
+
+  <div class="sidebar">
+    <a class="navbar-brand" href="dashboard.html">
+      <i class="bi bi-briefcase-fill me-2"></i>SmartHire
+    </a>
+    <nav class="nav flex-column mt-2">
+      <a class="nav-link" href="dashboard.html"><i class="bi bi-speedometer2"></i> Dashboard</a>
+      <a class="nav-link" href="profile.html"><i class="bi bi-person-circle"></i> My Profile</a>
+      <a class="nav-link" href="experience.html"><i class="bi bi-briefcase"></i> Experience</a>
+      <a class="nav-link" href="education.html"><i class="bi bi-mortarboard"></i> Education</a>
+      <a class="nav-link" href="skills.html"><i class="bi bi-stars"></i> Skills</a>
+      <a class="nav-link active" href="jobs.html"><i class="bi bi-search"></i> Browse Jobs</a>
+      <a class="nav-link" href="saved-jobs.html"><i class="bi bi-bookmark-heart"></i> Saved Jobs</a>
+      <a class="nav-link" href="applications.html"><i class="bi bi-file-earmark-text"></i> Applications</a>
+      <hr style="border-color: rgba(255,255,255,0.2);"/>
+      <a class="nav-link text-danger" href="#" id="logoutBtn"><i class="bi bi-box-arrow-left"></i> Logout</a>
+    </nav>
+  </div>
+
+  <div class="main-content">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <div>
+        <h4 class="fw-bold mb-0">Browse Jobs</h4>
+        <p class="text-muted mb-0">Find your next opportunity</p>
+      </div>
+    </div>
+
+    <div id="error" class="alert alert-danger d-none"></div>
+    <div id="success" class="alert alert-success d-none"></div>
+
+    <!-- Filters -->
+    <div class="card shadow-sm mb-4">
+      <div class="card-body p-4">
+        <div class="row g-3">
+          <div class="col-md-3">
+            <input type="text" id="filterLocation" class="form-control" placeholder="Location"/>
+          </div>
+          <div class="col-md-3">
+            <select id="filterJobType" class="form-select">
+              <option value="">All Job Types</option>
+              <option value="full_time">Full Time</option>
+              <option value="part_time">Part Time</option>
+              <option value="internship">Internship</option>
+              <option value="contract">Contract</option>
+            </select>
+          </div>
+          <div class="col-md-3">
+            <select id="filterWorkMode" class="form-select">
+              <option value="">All Work Modes</option>
+              <option value="remote">Remote</option>
+              <option value="hybrid">Hybrid</option>
+              <option value="onsite">Onsite</option>
+            </select>
+          </div>
+          <div class="col-md-3">
+            <select id="filterExperience" class="form-select">
+              <option value="">All Experience Levels</option>
+              <option value="entry">Entry</option>
+              <option value="junior">Junior</option>
+              <option value="mid">Mid</option>
+              <option value="senior">Senior</option>
+              <option value="lead">Lead</option>
+            </select>
+          </div>
+          <div class="col-12 d-flex gap-2">
+            <button class="btn btn-primary px-4" id="searchBtn">
+              <i class="bi bi-search me-2"></i>Search
+            </button>
+            <button class="btn btn-outline-secondary px-4" id="clearBtn">
+              Clear Filters
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Jobs List -->
+    <div id="jobsList"></div>
+
+    <!-- Job Detail Modal -->
+    <div class="modal fade" id="jobModal" tabindex="-1">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title fw-bold" id="modalTitle"></h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body" id="modalBody"></div>
+          <div class="modal-footer">
+            <button class="btn btn-outline-secondary" id="saveJobBtn">
+              <i class="bi bi-bookmark me-2"></i>Save Job
+            </button>
+            <button class="btn btn-primary" id="applyJobBtn">
+              <i class="bi bi-send me-2"></i>Apply Now
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../js/api.js"></script>
+  <script src="../js/candidate/jobs.js"></script>
+</body>
+</html>

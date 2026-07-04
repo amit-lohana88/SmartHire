@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Applications | SmartHire</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet"/>
+  <link href="../css/style.css" rel="stylesheet"/>
+</head>
+<body>
+
+  <div class="sidebar">
+    <a class="navbar-brand" href="dashboard.html">
+      <i class="bi bi-briefcase-fill me-2"></i>SmartHire
+    </a>
+    <nav class="nav flex-column mt-2">
+      <a class="nav-link" href="dashboard.html"><i class="bi bi-speedometer2"></i> Dashboard</a>
+      <a class="nav-link" href="profile.html"><i class="bi bi-person-circle"></i> My Profile</a>
+      <a class="nav-link" href="experience.html"><i class="bi bi-briefcase"></i> Experience</a>
+      <a class="nav-link" href="education.html"><i class="bi bi-mortarboard"></i> Education</a>
+      <a class="nav-link" href="skills.html"><i class="bi bi-stars"></i> Skills</a>
+      <a class="nav-link" href="jobs.html"><i class="bi bi-search"></i> Browse Jobs</a>
+      <a class="nav-link" href="saved-jobs.html"><i class="bi bi-bookmark-heart"></i> Saved Jobs</a>
+      <a class="nav-link active" href="applications.html"><i class="bi bi-file-earmark-text"></i> Applications</a>
+      <hr style="border-color: rgba(255,255,255,0.2);"/>
+      <a class="nav-link text-danger" href="#" id="logoutBtn"><i class="bi bi-box-arrow-left"></i> Logout</a>
+    </nav>
+  </div>
+
+  <div class="main-content">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <div>
+        <h4 class="fw-bold mb-0">My Applications</h4>
+        <p class="text-muted mb-0">Track all your job applications</p>
+      </div>
+    </div>
+
+    <div id="error" class="alert alert-danger d-none"></div>
+
+    <!-- Status Filter -->
+    <div class="card shadow-sm mb-4">
+      <div class="card-body p-3">
+        <div class="d-flex gap-2 flex-wrap">
+          <button class="btn btn-primary btn-sm filter-btn active" data-status="">All</button>
+          <button class="btn btn-outline-primary btn-sm filter-btn" data-status="applied">Applied</button>
+          <button class="btn btn-outline-purple btn-sm filter-btn" data-status="reviewing">Reviewing</button>
+          <button class="btn btn-outline-success btn-sm filter-btn" data-status="shortlisted">Shortlisted</button>
+          <button class="btn btn-outline-warning btn-sm filter-btn" data-status="interview_scheduled">Interview</button>
+          <button class="btn btn-outline-danger btn-sm filter-btn" data-status="rejected">Rejected</button>
+          <button class="btn btn-outline-success btn-sm filter-btn" data-status="hired">Hired</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="applicationsList"></div>
+
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../js/api.js"></script>
+  <script src="../js/candidate/applications.js"></script>
+</body>
+</html>
